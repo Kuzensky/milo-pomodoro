@@ -193,7 +193,6 @@ struct MiloPanelView: View {
                     get: { store.engine.settings.notificationsEnabled }, set: store.enableNotifications))
                 Toggle("Completion sound", isOn: setting(\.soundEnabled))
                 Toggle("Animate Milo", isOn: setting(\.animationEnabled))
-                Toggle("Scanline cat", isOn: $store.scanlineCatEnabled)
             }
             .toggleStyle(MiloToggleStyle())
             .font(.system(size: 12))

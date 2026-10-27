@@ -4,7 +4,6 @@ struct CatDrawing: View {
     let pose: CatPose
     var time: TimeInterval = 0
     var moving = false
-    var scanlines = false
 
     var body: some View {
         Canvas { context, size in
@@ -21,8 +20,8 @@ struct CatDrawing: View {
             let blinkPhase = time.truncatingRemainder(dividingBy: 6.7)
             let blink = moving && pose != .focus && blinkPhase > 4.6 && blinkPhase < 4.76
                 ? max(0.07, abs(blinkPhase - 4.68) / 0.08) : 1.0
-            func draw(_ part: VectorPart, in source: GraphicsContext) {
-                var layer = source
+            for part in pose.parts {
+                var layer = context
                 if moving, part.role == .tail {
                     let anchor = pose.tailAnchor
                     layer.translateBy(x: anchor.x, y: anchor.y)
@@ -42,28 +41,6 @@ struct CatDrawing: View {
                     layer.fill(part.path, with: ink)
                 }
             }
-            if scanlines {
-                // Cut only the silhouette in an isolated layer. Destination-out
-                // reveals the soft glow without erasing the panel behind it.
-                context.drawLayer { silhouette in
-                    for part in pose.parts where !part.white && part.role != .eyes {
-                        draw(part, in: silhouette)
-                    }
-                    let spacing = 12.0
-                    let offset = moving ? time.truncatingRemainder(dividingBy: 3.6) / 3.6 * spacing : 0
-                    silhouette.blendMode = .destinationOut
-                    for y in stride(from: -spacing, through: 512 + spacing, by: spacing) {
-                        let band = Path(CGRect(x: -16, y: y + offset, width: 544, height: 4))
-                        silhouette.fill(band, with: .color(.white.opacity(0.82)))
-                    }
-                }
-                // Keep the eyes, pupils and ear details crisp at menu-panel size.
-                for part in pose.parts where part.white || part.role == .eyes {
-                    draw(part, in: context)
-                }
-            } else {
-                for part in pose.parts { draw(part, in: context) }
-            }
         }
         .accessibilityHidden(true)
     }
@@ -78,8 +55,7 @@ struct MiloCatView: View {
     var body: some View {
         Button(action: react) {
             TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !animating)) { context in
-                CatDrawing(pose: store.pose, time: context.date.timeIntervalSinceReferenceDate,
-                           moving: animating, scanlines: store.scanlineCatEnabled)
+                CatDrawing(pose: store.pose, time: context.date.timeIntervalSinceReferenceDate, moving: animating)
                     .id(store.pose)
                     .transition(.opacity)
                     .animation(.easeInOut(duration: reduceMotion ? 0.1 : 0.25), value: store.pose)

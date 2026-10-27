@@ -79,7 +79,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if args.contains("--solid") { store.liquidGlassEnabled = false }
             if args.contains("--dark-glass") { store.glassDarkness = 1 }
             if args.contains("--clear-glass") { store.glassDarkness = 0 }
-            if args.contains("--plain-cat") { store.scanlineCatEnabled = false }
         }
     }
 
@@ -233,7 +232,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var panelSize: NSSize {
         if store.showSettings {
             let accessibilitySpace: CGFloat = NSWorkspace.shared.accessibilityDisplayShouldReduceTransparency ? 18 : 0
-            return .init(width: 352, height: (notifications.message == nil ? 544 : 576) + accessibilitySpace)
+            return .init(width: 352, height: (notifications.message == nil ? 520 : 552) + accessibilitySpace)
         }
         // A single compact landscape layout replaces the old portrait preference.
         return .init(width: 420, height: store.storageMessage == nil ? 224 : 246)

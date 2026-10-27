@@ -16,9 +16,9 @@ final class GenieGeometryTests: XCTestCase {
     }
 
     func testEveryRowConvergesOnAnOffCenterMenuIcon() {
-        let body = CGRect(x: 8, y: 0, width: 352, height: 544)
+        let body = CGRect(x: 8, y: 0, width: 352, height: 520)
         for anchorX: CGFloat in [30, 180, 340] {
-            let anchor = CGPoint(x: anchorX, y: 566)
+            let anchor = CGPoint(x: anchorX, y: 542)
             for row in 0...100 {
                 let section = GenieGeometry.section(at: CGFloat(row) / 100, progress: 1, body: body, anchor: anchor)
                 XCTAssertEqual(section.left, anchor.x, accuracy: 0.0001)
@@ -29,7 +29,7 @@ final class GenieGeometryTests: XCTestCase {
     }
 
     func testSheetNeverFoldsOrEscapesTheWindowDuringEitherPanelSize() {
-        for size in [CGSize(width: 420, height: 224), CGSize(width: 352, height: 594)] {
+        for size in [CGSize(width: 420, height: 224), CGSize(width: 352, height: 570)] {
             let body = CGRect(origin: CGPoint(x: 8, y: 0), size: size)
             let anchor = CGPoint(x: size.width - 18, y: size.height + 22)
             for frame in 0...100 {

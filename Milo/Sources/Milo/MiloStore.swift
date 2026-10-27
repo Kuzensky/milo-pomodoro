@@ -23,9 +23,6 @@ final class MiloStore: ObservableObject {
             onResize?()
         }
     }
-    @Published var scanlineCatEnabled: Bool {
-        didSet { defaults.set(scanlineCatEnabled, forKey: "milo.appearance.scanlineCat") }
-    }
     @Published var storageMessage: String?
     let notifications: NotificationService
     var onResize: (() -> Void)?
@@ -40,7 +37,6 @@ final class MiloStore: ObservableObject {
         liquidGlassEnabled = defaults.object(forKey: "milo.appearance.liquidGlass") as? Bool ?? true
         let darkness = defaults.object(forKey: "milo.appearance.glassDarkness") as? Double ?? 0.18
         glassDarkness = darkness.isFinite ? min(1, max(0, darkness)) : 0.18
-        scanlineCatEnabled = defaults.object(forKey: "milo.appearance.scanlineCat") as? Bool ?? true
         if let data = defaults.data(forKey: storageKey),
            let saved = try? JSONDecoder().decode(SessionEngine.self, from: data) {
             engine = saved

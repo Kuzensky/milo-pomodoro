@@ -2,7 +2,7 @@
 
 A small native macOS Pomodoro companion. The app is called **Milo** and lives in your menu bar with a monochrome cat, a compact landscape timer, and Liquid Glass.
 
-![Milo timer with the scanline cat](docs/milo-preview.png)
+![Milo Pomodoro timer](docs/milo-preview.png)
 
 ## Features
 
@@ -10,7 +10,7 @@ A small native macOS Pomodoro companion. The app is called **Milo** and lives in
 - Local session history, pause/resume, and deadline recovery after sleep or reopening.
 - Local completion notifications and optional sound.
 - Native glass with adjustable darkness, opaque readable controls, and solid settings.
-- A vector cat with breathing, blinking, tail movement, and an optional moving scanline effect.
+- A vector cat with breathing, blinking, and tail movement.
 - A Genie animation that opens from and closes into the menu icon. Click the icon again to dismiss.
 - Reduced Motion and Reduced Transparency support. Continuous cat animation pauses while the panel is hidden.
 
@@ -31,7 +31,7 @@ The script generates vector paths and icons, builds the executable, and creates 
 
 Click the cat in the menu bar to open or close Milo. Right-click for the menu and Quit. While the panel is active, Space starts or pauses the timer, Escape closes the panel, and Command-Q quits.
 
-In Settings, turn **Scanline cat** off to compare the original silhouette. **Animate Milo** controls continuous motion; Reduce Motion also stops it. The small menu icon and notification icon keep their clean silhouette.
+In Settings, **Animate Milo** controls continuous motion; Reduce Motion also stops it.
 
 Allow notifications when macOS asks. After permission is granted, use **Send test** in Settings to check delivery. macOS controls the notification banner; Milo's icon has a transparent background.
 
@@ -55,4 +55,4 @@ See [native preview commands](Milo/README.md) for isolated UI snapshots and diag
 
 ## Artwork
 
-The cat vectors were redrawn from supplied character references. The moving horizontal scanlines are rendered with SwiftUI Canvas over the existing vector silhouette, with crisp eyes and a soft radial glow. No MotionSites code or cat assets are included. This is a vector treatment rather than a 3D render.
+The cat vectors were redrawn from supplied character references. The cat is rendered with SwiftUI Canvas, with crisp eyes and a soft radial glow. No MotionSites code or cat assets are included. This is a vector treatment rather than a 3D render.
