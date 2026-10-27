@@ -1,3 +1,5 @@
+<img src="docs/milo-banner.png" alt="Milo — A little focus. Together. The app icon beside dark glass panels showing completed focus, short break, and long break." width="100%">
+
 # Milio Pomodoro
 
 A small native macOS Pomodoro companion. The app is called **Milo** and lives in your menu bar with a monochrome cat, a compact landscape timer, and Liquid Glass.
