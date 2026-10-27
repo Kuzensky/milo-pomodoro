@@ -1,0 +1,25 @@
+.DS_Store
+.build/
+*.app/
+Milo/Build/
+
+# Personal reviewers and local design references are not part of the app.
+output/
+Milo/Design/references/
+Milo/Design/readme/
+Milo/Design/PLAN.md
+Milo/Design/preview*
+Milo/Design/asset-sheet.png
+Milo/Design/tools/build_preview.py
+
+# Local tools, caches and credentials
+.swiftpm/
+.env
+.env.*
+!.env.example
+*.xcuserstate
+xcuserdata/
+__pycache__/
+*.pyc
+*.pem
+*.p12

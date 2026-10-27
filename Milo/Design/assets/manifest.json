@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "viewBox": [
+    0,
+    0,
+    512,
+    512
+  ],
+  "source": "Vector redraws of user-supplied screenshots; not embedded raster images.",
+  "files": {
+    "milo-icon.svg": {
+      "layers": [
+        "title-icon",
+        "desc-icon",
+        "milo-red",
+        "character",
+        "head",
+        "whiskers",
+        "eyes",
+        "eye-left",
+        "eye-right",
+        "pupils",
+        "pupil-left",
+        "pupil-right"
+      ]
+    },
+    "milo-idle.svg": {
+      "layers": [
+        "title-idle",
+        "desc-idle",
+        "character",
+        "tail",
+        "body",
+        "head",
+        "ear-inner",
+        "eyes",
+        "eye-left",
+        "eye-right",
+        "pupils",
+        "pupil-left",
+        "pupil-right"
+      ]
+    },
+    "milo-focus.svg": {
+      "layers": [
+        "title-focus",
+        "desc-focus",
+        "character",
+        "tail",
+        "body",
+        "head",
+        "ear-inner",
+        "eyes",
+        "eye-left",
+        "eye-right"
+      ]
+    },
+    "milo-rest.svg": {
+      "layers": [
+        "title-rest",
+        "desc-rest",
+        "character",
+        "tail",
+        "body",
+        "head",
+        "ear-inner",
+        "eyes",
+        "eye-left",
+        "eye-right",
+        "pupils",
+        "pupil-left",
+        "pupil-right",
+        "mouth"
+      ]
+    }
+  },
+  "runtime": "Convert named SVG geometry into SwiftUI paths; animate native groups. SVG browser animation is preview-only.",
+  "states": {
+    "idle": {
+      "asset": "milo-idle.svg",
+      "loopSeconds": 4.8,
+      "motion": "gentle breathing, slow tail sway, occasional blink"
+    },
+    "focus": {
+      "asset": "milo-focus.svg",
+      "loopSeconds": 6.0,
+      "motion": "subtle breathing, sparse ear twitch"
+    },
+    "rest": {
+      "asset": "milo-rest.svg",
+      "loopSeconds": 5.2,
+      "motion": "reclined breathing, soft tail tip movement"
+    },
+    "complete": {
+      "asset": "milo-idle.svg",
+      "loopSeconds": null,
+      "motion": "one 600ms happy bounce, then settle"
+    }
+  },
+  "accessibility": {
+    "reducedMotion": "Static pose; no continuous motion or bounce",
+    "darkAppearance": "Keep black character; add a softly lit neutral stage behind it"
+  }
+}

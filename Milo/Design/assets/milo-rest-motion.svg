@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title-rest desc-rest">
+<title id="title-rest">Milo — taking a break</title>
+<desc id="desc-rest">Editable vector redraw from the supplied reference. Separate named parts for animation. Transparent background.</desc><style>
+    #motion-body {transform-box:fill-box;transform-origin:50% 95%;animation:breathe 5.2s ease-in-out infinite}
+    #tail {transform-box:fill-box;transform-origin:10% 10%;animation:sway 5.2s ease-in-out infinite}
+    #eyes,#pupils {transform-box:fill-box;transform-origin:center;animation:blink 7.1s linear infinite}
+    @keyframes breathe {0%,100%{transform:scale(1)}50%{transform:scale(1.012,1.018)}}
+    @keyframes sway {0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(2deg)}}
+    @keyframes blink {0%,45%,48%,100%{transform:scaleY(1)}46.5%{transform:scaleY(.08)}}
+    @media(prefers-reduced-motion:reduce){#motion-body,#tail,#eyes,#pupils{animation:none}}
+    </style>
+
+<g id="character" transform="translate(-42 -35) scale(.85)"><g id="motion-body"><path id="tail" d="M479 485 C528 504 561 540 587 588 C600 613 614 649 632 645 C658 638 642 593 623 559 C598 515 561 475 527 457 Z" fill="#090909" /><path id="body" d="M302 284 C354 265 417 297 461 322 C498 344 532 364 555 371 C574 337 597 322 621 335 C648 350 640 383 620 409 L565 473 C548 493 527 505 497 505 C481 544 451 564 425 548 C405 536 400 516 389 501 C354 474 328 433 312 405 C284 420 258 415 245 399 C230 379 251 354 279 345 Z" fill="#090909" /><path id="head" d="M117 285 C128 222 172 161 227 141 C279 121 341 133 378 168 C398 187 408 212 411 237 C428 225 444 231 449 246 C456 264 445 282 438 293 C456 321 458 344 435 363 C404 387 360 383 318 386 L184 413 C159 418 138 408 139 391 C141 374 159 367 174 364 C150 375 126 383 113 373 C101 364 110 338 117 321 L108 318 Z" fill="#090909" /><path id="ear-inner" d="M111 347 C124 337 137 338 151 345 L172 362 C147 373 128 380 114 373 C108 369 107 358 111 347 Z" fill="#fff" /><g id="eyes" fill="#fff"><ellipse id="eye-left" cx="195" cy="245" rx="54" ry="68" transform="rotate(24 195 245)"/><ellipse id="eye-right" cx="320" cy="184" rx="66" ry="48" transform="rotate(32 320 184)"/></g><g id="pupils" fill="#090909"><ellipse id="pupil-left" cx="202" cy="244" rx="39" ry="49" transform="rotate(24 202 244)"/><ellipse id="pupil-right" cx="325" cy="185" rx="46" ry="34" transform="rotate(32 325 185)"/></g><path id="mouth" d="M305 283 Q309 275 316 272" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g>
+</g></svg>

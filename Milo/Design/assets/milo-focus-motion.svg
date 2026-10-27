@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title-focus desc-focus">
+<title id="title-focus">Milo — quietly focused</title>
+<desc id="desc-focus">Editable vector redraw from the supplied reference. Separate named parts for animation. Transparent background.</desc><style>
+    #motion-body {transform-box:fill-box;transform-origin:50% 95%;animation:breathe 6s ease-in-out infinite}
+    #tail {transform-box:fill-box;transform-origin:10% 10%;animation:sway 6s ease-in-out infinite}
+    #eyes,#pupils {transform-box:fill-box;transform-origin:center;animation:blink 7.1s linear infinite}
+    @keyframes breathe {0%,100%{transform:scale(1)}50%{transform:scale(1.012,1.018)}}
+    @keyframes sway {0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(2deg)}}
+    @keyframes blink {0%,45%,48%,100%{transform:scaleY(1)}46.5%{transform:scaleY(.08)}}
+    @media(prefers-reduced-motion:reduce){#motion-body,#tail,#eyes,#pupils{animation:none}}
+    </style>
+
+<g id="character" transform="translate(9 12) scale(.58)"><g id="motion-body"><path id="tail" d="M558 535 C656 506 736 569 767 635 C789 680 783 741 760 751 C730 765 696 742 694 707 C691 658 664 641 620 636 L578 645 Z" fill="#090909" /><path id="body" d="M262 498 C323 463 441 468 512 492 C580 514 609 568 610 623 C610 684 562 721 489 735 L427 740 C412 772 372 792 340 774 C313 761 305 735 309 707 C281 723 249 719 225 704 C201 689 199 662 213 635 C231 605 236 597 234 559 Z" fill="#090909" /><path id="head" d="M111 347 C122 242 196 142 299 70 C342 40 380 25 402 46 C421 65 428 92 433 126 C481 130 514 153 546 174 C617 174 696 184 725 225 C751 261 724 315 687 363 C648 418 586 461 532 494 C470 533 398 564 324 561 C235 558 165 521 132 466 C110 429 104 387 111 347 Z" fill="#090909" /><path id="ear-inner" d="M619 321 C655 294 690 281 722 278 C719 333 666 399 610 443 C618 396 621 355 619 321 Z" fill="#fff" /><g id="eyes" fill="#fff"><path id="eye-left" d="M140 267 C125 296 115 337 119 380 C121 435 149 483 190 488 C229 493 264 457 285 416 L258 393 C238 430 214 445 188 429 C159 411 150 374 151 337 C151 319 156 300 165 286 Z" fill="#fff" /><path id="eye-right" d="M322 437 L371 424 C377 475 396 499 429 499 C479 501 513 459 524 414 C530 389 528 370 524 352 C555 381 568 425 561 466 C550 523 512 551 463 554 C389 558 340 517 322 437 Z" fill="#fff" /></g></g>
+</g></svg>
