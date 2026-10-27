@@ -4,8 +4,6 @@
 
 A small native macOS Pomodoro companion. The app is called **Milo** and lives in your menu bar with a monochrome cat, a compact landscape timer, and Liquid Glass.
 
-![Milo Pomodoro timer](docs/milo-preview.png)
-
 ## Features
 
 - Focus, short break, and long break timers with configurable durations and daily goals.
