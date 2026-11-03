@@ -53,6 +53,23 @@ The 14 tests cover timer persistence, pause/resume, exactly-once completion, sle
 
 See [native preview commands](Milo/README.md) for isolated UI snapshots and diagnostics.
 
+## Website and downloads
+
+`website/` is the landing page: static HTML, CSS and JavaScript with no build step. Preview it locally:
+
+```sh
+python3 -m http.server 4173 --directory website
+```
+
+Every download button links to `releases/latest/download/Milo.dmg`, so publish each version as a GitHub release with a `Milo.dmg` asset:
+
+```sh
+zsh Milo/Tools/package_dmg.sh
+gh release create v1.0 dist/Milo.dmg --title "Milo 1.0"
+```
+
+`package_dmg.sh` builds a universal (Apple silicon and Intel) app and wraps it in a drag-to-Applications disk image. The app is signed ad hoc, not notarized, so the site's FAQ explains how to open it the first time.
+
 ## Artwork
 
 The cat vectors were redrawn from supplied character references. The cat is rendered with SwiftUI Canvas, with crisp eyes and a soft radial glow. No MotionSites code or cat assets are included. This is a vector treatment rather than a 3D render.

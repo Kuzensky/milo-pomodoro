@@ -23,3 +23,13 @@ __pycache__/
 *.pyc
 *.pem
 *.p12
+
+# Release builds
+dist/
+
+# Local working notes and tool settings
+docs/milo-banner-prompt.md
+.claude/
+
+# Vercel project link
+.vercel/

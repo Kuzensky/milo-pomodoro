@@ -4,11 +4,22 @@ project_dir="${0:A:h:h}"
 workspace_dir="${project_dir:h}"
 build_dir="$workspace_dir/.build/milo"
 destination="$workspace_dir/Milo.app"
+arch_flags=()
+
+# --universal builds for Apple silicon and Intel; --output places the app elsewhere.
+while (( $# )); do
+  case $1 in
+    --universal) arch_flags=(--arch arm64 --arch x86_64); build_dir="$workspace_dir/.build/milo-universal" ;;
+    --output) destination="${2:A}"; shift ;;
+    *) print -u2 "Usage: build.sh [--universal] [--output path/to/Milo.app]"; exit 64 ;;
+  esac
+  shift
+done
 
 python3 "$project_dir/Design/tools/build_assets.py"
 python3 "$project_dir/Tools/generate_vectors.py"
-swift build --package-path "$project_dir" --scratch-path "$build_dir" -c release
-binary_dir="$(swift build --package-path "$project_dir" --scratch-path "$build_dir" -c release --show-bin-path)"
+swift build --package-path "$project_dir" --scratch-path "$build_dir" -c release "${arch_flags[@]}"
+binary_dir="$(swift build --package-path "$project_dir" --scratch-path "$build_dir" -c release "${arch_flags[@]}" --show-bin-path)"
 staging_dir="$(mktemp -d "$workspace_dir/.build/milo-package.XXXXXX")"
 app_dir="$staging_dir/Milo.app"
 trap 'if [[ -d "$staging_dir/previous-Milo.app" && ! -e "$destination" ]]; then mv "$staging_dir/previous-Milo.app" "$destination"; fi; rm -rf "$staging_dir"' EXIT
