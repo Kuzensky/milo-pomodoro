@@ -230,13 +230,12 @@
     long: { title: 'Long break', minutes: 15 },
   };
 
-  function setupDemo() {
+  function setupDemo(time) {
     const panel = $('[data-panel]');
     const clock = $('[data-clock-face]');
     const primary = $('[data-primary]');
     const primaryLabel = $('[data-primary-label]');
     const status = $('[data-status]');
-    const ff = $('[data-ff]');
     const todayCount = $('[data-today-count]');
     const modes = $('[data-modes]');
     const lines = $('[data-lines]');
@@ -245,7 +244,8 @@
     let fastForward = null;
     let typing = 0;
 
-    const now = () => performance.now();
+    // Preview time, not wall time: pausing the preview freezes every deadline.
+    const now = time.now;
     const secondsLeft = () => (state.phase === 'running' ? Math.max(0, (state.deadline - now()) / 1000) : state.remaining);
     const countdown = (seconds) => {
       const s = Math.max(0, Math.ceil(seconds));
@@ -287,7 +287,6 @@
       }
       moveThumb();
       for (const host of $$('[data-pose]', panel)) host.classList.toggle('is-on', host.dataset.pose === pose());
-      ff.hidden = state.phase !== 'running';
       const message = statusText();
       if (status.textContent !== message) {
         status.classList.add('is-swapping');
@@ -299,12 +298,13 @@
       clearInterval(typing);
       if (!on) return;
       typing = setInterval(() => {
+        if (time.paused) return;
         if (lines.children.length >= 9) return clearInterval(typing);
         const line = document.createElement('i');
         line.className = 'is-new';
         line.style.setProperty('--w', `${55 + Math.round(Math.random() * 40)}%`);
         lines.append(line);
-      }, 2600);
+      }, 1300);
     }
 
     function schedule() {
@@ -380,44 +380,177 @@
       requestAnimationFrame(step);
     }
 
+    // Banners stay up until the preview's script dismisses them.
     const note = $('[data-note]');
-    let noteTimer = 0;
     function notify([title, body]) {
       $('[data-note-title]').textContent = title;
       $('[data-note-body]').textContent = body;
       note.classList.remove('is-leaving');
       note.hidden = false;
-      clearTimeout(noteTimer);
-      noteTimer = setTimeout(dismissNote, 5200);
     }
     function dismissNote() {
       if (note.hidden) return;
       note.classList.add('is-leaving');
       setTimeout(() => { note.hidden = true; note.classList.remove('is-leaving'); }, isStill() ? 0 : 300);
     }
-    note.addEventListener('click', dismissNote);
-
-    primary.addEventListener('click', startOrPause);
-    $('[data-reset]').addEventListener('click', () => select(state.kind));
-    ff.addEventListener('click', skipToEnd);
-    radioGroup(modes, '[data-mode]', (button) => {
-      if (button.dataset.mode !== state.kind) select(button.dataset.mode);
-    });
-    $('[data-pet]', panel).addEventListener('click', () => react($('.pose.is-on', panel), 'is-petted'));
-
-    const menubarCat = $('[data-menubar-cat]');
-    menubarCat.addEventListener('click', () => togglePanel(panel, menubarCat));
-    panel.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape') return;
-      togglePanel(panel, menubarCat, false);
-      menubarCat.focus();
-    });
 
     document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
     addEventListener('resize', moveThumb);
     document.fonts?.ready.then(moveThumb);
     setDigits(todayCount, '0');
     render();
+
+    // The screen is inert, so visitors can't press anything; these are the
+    // only ways in, and setupPreview() plays them like a script.
+    const menubarCat = $('[data-menubar-cat]');
+    return {
+      start: startOrPause,
+      skip: skipToEnd,
+      dismissNote,
+      show: (open) => togglePanel(panel, menubarCat, open),
+      // A fresh day, set while the panel is tucked away so the loop restarts unseen.
+      reset() {
+        select('focus');
+        Object.assign(state, { done: 0, sinceLong: 0 });
+        setDigits(todayCount, '0', { duration: 0 });
+        $('[data-today-sr]').textContent = `0 of ${state.goal} focus sessions completed today`;
+        for (const line of $$('.is-new', lines)) line.remove();
+        dismissNote();
+      },
+    };
+  }
+
+  /* Hero preview: the panel above, played by a scripted cursor ------------------- */
+
+  /** Time that stands still while the preview is paused, so deadlines wait too. */
+  function pausableTime() {
+    let offset = 0;
+    let pausedAt = null;
+    return {
+      now: () => (pausedAt ?? performance.now()) - offset,
+      get paused() { return pausedAt !== null; },
+      pause() { if (pausedAt === null) pausedAt = performance.now(); },
+      resume() {
+        if (pausedAt === null) return;
+        offset += performance.now() - pausedAt;
+        pausedAt = null;
+      },
+    };
+  }
+
+  function setupPreview(demo, time) {
+    const stage = $('[data-preview]');
+    const cam = $('[data-cam]');
+    const cursor = $('[data-cursor]');
+    const primary = $('[data-primary]');
+    const menubarCat = $('[data-menubar-cat]');
+    const toggle = $('[data-preview-toggle]');
+    const label = $('[data-preview-label]');
+    // Every reason the preview is holding still: 'user', 'still', 'offscreen', 'hidden'.
+    const holds = new Set();
+
+    /** Resolves after `ms` of preview time, so a pause holds the script mid-step. */
+    const wait = (ms) => new Promise((resolve) => {
+      const until = time.now() + ms;
+      const check = () => (time.now() >= until ? resolve() : requestAnimationFrame(check));
+      requestAnimationFrame(check);
+    });
+
+    /** Center of `el` in the camera layer's own coordinates; offsets ignore its zoom. */
+    function centerOf(el) {
+      let x = el.offsetWidth / 2;
+      let y = el.offsetHeight / 2;
+      for (let node = el; node && node !== cam; node = node.offsetParent) {
+        x += node.offsetLeft;
+        y += node.offsetTop;
+      }
+      return { x, y };
+    }
+    const aim = ({ x, y }) => { cursor.style.transform = `translate(${x - 2}px, ${y - 1.5}px)`; };
+    const rest = () => aim({ x: cam.offsetWidth * 0.32, y: cam.offsetHeight * 0.7 });
+
+    /** Glides the cursor onto `el`, then presses it. */
+    async function press(el) {
+      aim(centerOf(el));
+      await wait(950);
+      cursor.classList.add('is-down');
+      el.classList.add('is-pressed');
+      await wait(140);
+      cursor.classList.remove('is-down');
+      el.classList.remove('is-pressed');
+    }
+
+    // One take, about 20 seconds, that ends exactly where it began.
+    async function play() {
+      for (;;) {
+        await wait(1600);
+        await press(primary);               // Start focus
+        demo.start();
+        cam.classList.add('is-zoomed');
+        await wait(2800);                   // a few real seconds tick by,
+        demo.skip();                        // then the rest of the session eases away
+        await wait(1800);
+        cam.classList.remove('is-zoomed');  // pull back so the banner is in shot
+        await wait(2200);
+        await press(primary);               // Start short break
+        demo.dismissNote();
+        demo.start();
+        cam.classList.add('is-zoomed');
+        await wait(2000);
+        demo.skip();
+        await wait(1800);
+        cam.classList.remove('is-zoomed');
+        await wait(1800);
+        await press(menubarCat);            // tuck Milo away,
+        demo.dismissNote();
+        demo.show(false);
+        await wait(1200);
+        demo.reset();                       // start a fresh day out of sight,
+        await press(menubarCat);            // and bring Milo back
+        demo.show(true);
+        rest();
+        await wait(900);
+      }
+    }
+
+    function sync() {
+      const held = holds.size > 0;
+      if (held) time.pause();
+      else time.resume();
+      stage.classList.toggle('is-paused', held);
+      // Only a stop the visitor asked for (directly or through Reduce Motion) offers Play;
+      // scrolling away or switching tabs resumes on its own.
+      const stopped = holds.has('user') || holds.has('still');
+      toggle.classList.toggle('is-paused', stopped);
+      label.textContent = stopped ? 'Play preview' : 'Pause preview';
+    }
+    const hold = (reason, on) => {
+      if (on) holds.add(reason);
+      else holds.delete(reason);
+      sync();
+    };
+
+    toggle.addEventListener('click', () => {
+      if (holds.has('user') || holds.has('still')) {
+        holds.delete('still');
+        hold('user', false);
+      } else {
+        hold('user', true);
+      }
+    });
+    const followMotion = () => hold('still', isStill());
+    reduceMotion.addEventListener('change', followMotion);
+    // The "Animate Milo" switch toggles html.still; watch the class rather than the switch.
+    new MutationObserver(followMotion).observe(root, { attributes: true, attributeFilter: ['class'] });
+    new IntersectionObserver(([entry]) => hold('offscreen', !entry.isIntersecting), { threshold: 0.15 }).observe(cam);
+    document.addEventListener('visibilitychange', () => hold('hidden', document.hidden));
+
+    cursor.style.transition = 'none';
+    rest();
+    void cursor.offsetWidth;
+    cursor.style.transition = '';
+    followMotion();
+    play();
   }
 
   /** Opens or closes a panel from its menu bar icon with the genie animation. */
@@ -708,7 +841,8 @@
   setupToast();
   mountCats();
   setupGaze();
-  setupDemo();
+  const previewTime = pausableTime();
+  setupPreview(setupDemo(previewTime), previewTime);
   setupRhythm();
   setupScrub();
   setupReveals();

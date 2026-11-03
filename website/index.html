@@ -53,76 +53,91 @@
         <p class="cta-meta reveal" style="--d:300" data-download-note>Free · macOS 26 or later · 780 KB</p>
       </div>
 
-      <div class="stage wrap reveal" style="--d:360" id="try">
-        <div class="screen" data-screen>
-          <div class="sky" aria-hidden="true"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
+      <figure class="stage wrap reveal" style="--d:360" id="try" data-preview>
+        <div class="laptop">
+          <div class="lid">
+            <div class="screen" data-screen inert>
+              <div class="cam" data-cam>
+                <div class="sky" aria-hidden="true"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
 
-          <div class="menubar">
-            <div class="mb-left" aria-hidden="true"><b>Notes</b><span>File</span><span>Edit</span><span>Format</span><span>View</span></div>
-            <div class="mb-right">
-              <button class="mb-milo" type="button" aria-expanded="true" aria-controls="panel" aria-label="Milo in the menu bar. Show or hide the timer" data-menubar-cat>
-                <span data-cat="icon"></span>
-              </button>
-              <svg class="mb-glyph" viewBox="0 0 20 14" aria-hidden="true"><path d="M10 12.6 13.2 9a4.5 4.5 0 0 0-6.4 0Zm-5.2-5.8a7.4 7.4 0 0 1 10.4 0l1.6-1.8a9.8 9.8 0 0 0-13.6 0Zm-3-3.3a11.7 11.7 0 0 1 16.4 0L20 1.9a14 14 0 0 0-20 0Z"/></svg>
-              <svg class="mb-glyph mb-battery" viewBox="0 0 26 13" aria-hidden="true"><rect x=".75" y=".75" width="21.5" height="11.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".55"/><rect x="2.5" y="2.5" width="15" height="8" rx="1.8"/><path d="M23.8 4.6v3.8c.8-.3 1.2-1 1.2-1.9s-.4-1.6-1.2-1.9Z" opacity=".55"/></svg>
-              <time class="mb-time" data-clock>Tue 9:41</time>
-            </div>
-          </div>
-
-          <div class="win" aria-hidden="true" data-window>
-            <div class="win-bar"><i></i><i></i><i></i><span>Chapter four.md</span></div>
-            <div class="win-body">
-              <p class="win-title">Chapter four</p>
-              <div class="win-lines" data-lines><i style="--w:92%"></i><i style="--w:84%"></i><i style="--w:96%"></i><i style="--w:58%"></i></div>
-            </div>
-          </div>
-
-          <div class="note" role="status" aria-live="polite" data-note hidden>
-            <span class="note-icon" data-cat="icon"></span>
-            <div class="note-text"><p class="note-app">Milo <span>now</span></p><p class="note-title" data-note-title></p><p class="note-body" data-note-body></p></div>
-          </div>
-
-          <div class="panel is-open" id="panel" role="group" aria-label="Milo timer, interactive demo" data-panel>
-            <div class="panel-head">
-              <span class="p-icon" data-cat="icon"></span>
-              <span class="p-name">Milo</span>
-              <span class="p-today"><span aria-hidden="true"><span data-today-count>0</span>/4 today</span><span class="sr-only" data-today-sr>0 of 4 focus sessions completed today</span></span>
-              <span class="p-settings" aria-hidden="true"><svg viewBox="0 0 18 16"><path d="M1 3h16M1 8h16M1 13h16" stroke-width="1.2"/><circle cx="12" cy="3" r="1.9"/><circle cx="6" cy="8" r="1.9"/><circle cx="11" cy="13" r="1.9"/></svg></span>
-            </div>
-            <div class="panel-body">
-              <button class="p-cat" type="button" aria-label="Pet Milo" data-pet>
-                <span class="pose is-on" data-pose="idle" data-cat="idle"></span>
-                <span class="pose" data-pose="focus" data-cat="focus"></span>
-                <span class="pose" data-pose="rest" data-cat="rest"></span>
-              </button>
-              <div class="p-main">
-                <div class="modes" role="radiogroup" aria-label="Timer mode" data-modes>
-                  <i class="modes-thumb" aria-hidden="true"></i>
-                  <button class="mode" type="button" role="radio" aria-checked="true" data-mode="focus">Focus</button>
-                  <button class="mode" type="button" role="radio" aria-checked="false" data-mode="short">Short break</button>
-                  <button class="mode" type="button" role="radio" aria-checked="false" data-mode="long">Long break</button>
+                <div class="menubar">
+                  <div class="mb-left" aria-hidden="true"><b>Notes</b><span>File</span><span>Edit</span><span>Format</span><span>View</span></div>
+                  <div class="mb-right">
+                    <button class="mb-milo" type="button" aria-expanded="true" aria-controls="panel" aria-label="Milo in the menu bar. Show or hide the timer" data-menubar-cat>
+                      <span data-cat="icon"></span>
+                    </button>
+                    <svg class="mb-glyph" viewBox="0 0 20 14" aria-hidden="true"><path d="M10 12.6 13.2 9a4.5 4.5 0 0 0-6.4 0Zm-5.2-5.8a7.4 7.4 0 0 1 10.4 0l1.6-1.8a9.8 9.8 0 0 0-13.6 0Zm-3-3.3a11.7 11.7 0 0 1 16.4 0L20 1.9a14 14 0 0 0-20 0Z"/></svg>
+                    <svg class="mb-glyph mb-battery" viewBox="0 0 26 13" aria-hidden="true"><rect x=".75" y=".75" width="21.5" height="11.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".55"/><rect x="2.5" y="2.5" width="15" height="8" rx="1.8"/><path d="M23.8 4.6v3.8c.8-.3 1.2-1 1.2-1.9s-.4-1.6-1.2-1.9Z" opacity=".55"/></svg>
+                    <time class="mb-time" data-clock>Tue 9:41</time>
+                  </div>
                 </div>
-                <div class="clock" role="timer" aria-label="Time remaining" data-clock-face>25:00</div>
-                <div class="controls">
-                  <button class="ctl ctl-primary" type="button" data-primary>
-                    <svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.9v8.2c0 .5.5.8.9.5l6.9-4.1a.6.6 0 0 0 0-1L3.9 1.4c-.4-.3-.9 0-.9.5Z"/></svg>
-                    <svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2.2" y="1.5" width="2.6" height="9" rx=".8"/><rect x="7.2" y="1.5" width="2.6" height="9" rx=".8"/></svg>
-                    <span data-primary-label>Start focus</span>
-                  </button>
-                  <button class="ctl ctl-round" type="button" aria-label="Reset timer" data-reset>
-                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.6 8.6A4.6 4.6 0 1 0 5 4.4"/><path d="M4.4 1.8v2.9h2.9"/></svg>
-                  </button>
+
+                <div class="win" aria-hidden="true" data-window>
+                  <div class="win-bar"><i></i><i></i><i></i><span>Chapter four.md</span></div>
+                  <div class="win-body">
+                    <p class="win-title">Chapter four</p>
+                    <div class="win-lines" data-lines><i style="--w:92%"></i><i style="--w:84%"></i><i style="--w:96%"></i><i style="--w:58%"></i></div>
+                  </div>
                 </div>
+
+                <div class="note" data-note hidden>
+                  <span class="note-icon" data-cat="icon"></span>
+                  <div class="note-text"><p class="note-app">Milo <span>now</span></p><p class="note-title" data-note-title></p><p class="note-body" data-note-body></p></div>
+                </div>
+
+                <div class="panel is-open" id="panel" role="group" aria-label="Milo timer" data-panel>
+                  <div class="panel-head">
+                    <span class="p-icon" data-cat="icon"></span>
+                    <span class="p-name">Milo</span>
+                    <span class="p-today"><span aria-hidden="true"><span data-today-count>0</span>/4 today</span><span class="sr-only" data-today-sr>0 of 4 focus sessions completed today</span></span>
+                    <span class="p-settings" aria-hidden="true"><svg viewBox="0 0 18 16"><path d="M1 3h16M1 8h16M1 13h16" stroke-width="1.2"/><circle cx="12" cy="3" r="1.9"/><circle cx="6" cy="8" r="1.9"/><circle cx="11" cy="13" r="1.9"/></svg></span>
+                  </div>
+                  <div class="panel-body">
+                    <button class="p-cat" type="button" aria-label="Pet Milo" data-pet>
+                      <span class="pose is-on" data-pose="idle" data-cat="idle"></span>
+                      <span class="pose" data-pose="focus" data-cat="focus"></span>
+                      <span class="pose" data-pose="rest" data-cat="rest"></span>
+                    </button>
+                    <div class="p-main">
+                      <div class="modes" role="radiogroup" aria-label="Timer mode" data-modes>
+                        <i class="modes-thumb" aria-hidden="true"></i>
+                        <button class="mode" type="button" role="radio" aria-checked="true" data-mode="focus">Focus</button>
+                        <button class="mode" type="button" role="radio" aria-checked="false" data-mode="short">Short break</button>
+                        <button class="mode" type="button" role="radio" aria-checked="false" data-mode="long">Long break</button>
+                      </div>
+                      <div class="clock" role="timer" aria-label="Time remaining" data-clock-face>25:00</div>
+                      <div class="controls">
+                        <button class="ctl ctl-primary" type="button" data-primary>
+                          <svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.9v8.2c0 .5.5.8.9.5l6.9-4.1a.6.6 0 0 0 0-1L3.9 1.4c-.4-.3-.9 0-.9.5Z"/></svg>
+                          <svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2.2" y="1.5" width="2.6" height="9" rx=".8"/><rect x="7.2" y="1.5" width="2.6" height="9" rx=".8"/></svg>
+                          <span data-primary-label>Start focus</span>
+                        </button>
+                        <button class="ctl ctl-round" type="button" aria-label="Reset timer" data-reset>
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.6 8.6A4.6 4.6 0 1 0 5 4.4"/><path d="M4.4 1.8v2.9h2.9"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <span class="cursor" aria-hidden="true" data-cursor><svg viewBox="0 0 18 24"><path d="M2 1.5v18l4.6-4.3 3 6.8 3-1.3-2.9-6.7h6.1Z"/></svg></span>
               </div>
+              <i class="notch" aria-hidden="true"></i>
             </div>
           </div>
+          <i class="base" aria-hidden="true"></i>
         </div>
 
-        <div class="stage-foot">
-          <p class="status" data-status aria-live="polite">A little focus. Together.</p>
-          <p class="stage-hint">Try it · Click the cat in the menu bar<button class="ff" type="button" data-ff hidden>Skip to the end <span aria-hidden="true">→</span></button></p>
-        </div>
-      </div>
+        <figcaption class="stage-foot">
+          <p class="status" data-status>A little focus. Together.</p>
+          <span class="sr-only">A looping preview of Milo on a Mac: clicking the cat in the menu bar opens the timer, a focus session counts down, a notification suggests a break, and Milo stretches out for it.</span>
+          <button class="preview-toggle" type="button" data-preview-toggle>
+            <svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2.2" y="1.5" width="2.6" height="9" rx=".8"/><rect x="7.2" y="1.5" width="2.6" height="9" rx=".8"/></svg>
+            <svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.9v8.2c0 .5.5.8.9.5l6.9-4.1a.6.6 0 0 0 0-1L3.9 1.4c-.4-.3-.9 0-.9.5Z"/></svg>
+            <span data-preview-label>Pause preview</span>
+          </button>
+        </figcaption>
+      </figure>
     </section>
 
     <!-- Meet Milo: three moods ----------------------------------------------->
