@@ -434,18 +434,18 @@ em { font-style: italic; }
 .section-head { text-align: center; max-width: 820px; margin: 0 auto clamp(44px, 6vw, 72px); }
 
 /* Meet Milo: three cards that flip in. */
-.moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; perspective: 1600px; }
+.moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 920px; margin-inline: auto; perspective: 1600px; }
 .js .flip { opacity: 0; }
 .flip.in { animation: flip-in 1s var(--ease) both; animation-delay: calc(var(--i, 0) * 130ms); }
 @keyframes flip-in { from { opacity: 0; transform: rotateY(-70deg) translateZ(-40px); } to { opacity: 1; transform: none; } }
 .mood { transform-origin: 0 50%; }
-.mood-card { height: 100%; padding: 14px 14px 24px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
+.mood-card { height: 100%; padding: 10px 10px 18px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
 .mood-card:hover { transform: translateY(-4px); box-shadow: 0 28px 44px -32px rgb(0 0 0 / 0.45); }
-.mood-art { display: grid; place-items: center; width: 100%; aspect-ratio: 1 / 0.86; margin-bottom: 22px; padding: 10%; border: 0; border-radius: 16px; cursor: pointer; background: radial-gradient(62% 62% at 50% 46%, #fff 0%, var(--paper-deep) 100%); }
+.mood-art { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 11; margin-bottom: 8px; padding: 4% 14%; border: 0; border-radius: 16px; cursor: pointer; background: radial-gradient(62% 62% at 50% 46%, #fff 0%, var(--paper-deep) 100%); }
 .mood-art > span { width: 100%; height: 100%; }
-.mood-card .tag { margin: 0 10px 8px; font: 500 11px/1.4 var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.mood-card .tag { margin: 0 10px 6px; font: 500 11px/1.4 var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .mood-card h3, .mood-card h3 + p { margin-inline: 10px; }
-.mood-card h3 + p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.mood-card h3 + p { margin-top: 4px; color: var(--muted); font-size: 14px; }
 
 /* Quiet by design: two big numbers. */
 .stats { display: grid; grid-template-columns: 1fr 1fr; max-width: 860px; margin: 0 auto; }
@@ -702,7 +702,7 @@ em { font-style: italic; }
 /* Text on tinted glass needs a darker gray to keep 4.5:1 over the color fields. */
 .mood-card, .round, .tile { --muted: #474747; }
 .mood-card:hover { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), 0 30px 54px -30px rgb(0 0 0 / 0.42); }
-.mood-art { background: radial-gradient(60% 60% at 50% 46%, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.25)); }
+.mood-art { background: none; }
 .stop-card { background: rgb(255 255 255 / 0.62); }
 .stop[data-kind="short"] .stop-card { background: rgb(255 255 255 / 0.2); }
 
