@@ -148,7 +148,7 @@ em { font-style: italic; }
 /* Navigation ----------------------------------------------------------------- */
 
 .nav { position: sticky; top: 0; z-index: 40; transition: background-color 0.4s, box-shadow 0.4s, backdrop-filter 0.4s; }
-.nav.is-scrolled { background: rgb(255 255 255 / 0.78); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 1px 0 var(--line); }
+.nav.is-scrolled { background: #fff; box-shadow: 0 1px 0 var(--line); }
 .nav-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
 .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); }
 .brand-mark { width: 30px; height: 30px; }
@@ -214,16 +214,8 @@ em { font-style: italic; }
 .cursor.is-down svg { transform: scale(0.84); }
 .stage.is-paused .screen *, .stage.is-paused .screen *::before { animation-play-state: paused !important; }
 
-.sky {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(70% 60% at 82% 112%, #cdcdcd 0%, rgb(205 205 205 / 0) 70%),
-    radial-gradient(60% 50% at 6% 104%, #d9d9d9 0%, rgb(217 217 217 / 0) 72%),
-    linear-gradient(180deg, #d4d4d4 0%, #e2e2e2 34%, #ececec 64%, #e3e3e3 100%);
-}
-.cloud { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0)); animation: drift 70s ease-in-out infinite alternate; }
+.sky { position: absolute; inset: 0; z-index: -1; background: #ececec; }
+.cloud { display: none; }
 .c1 { left: -10%; top: 56%; width: 46%; aspect-ratio: 3 / 1; }
 .c2 { left: 26%; top: 70%; width: 52%; aspect-ratio: 3.4 / 1; animation-duration: 90s; }
 .c3 { right: -12%; top: 62%; width: 44%; aspect-ratio: 3 / 1; animation-duration: 80s; }
@@ -474,8 +466,8 @@ em { font-style: italic; }
 @keyframes flip-in { from { opacity: 0; transform: rotateY(-70deg) translateZ(-40px); } to { opacity: 1; transform: none; } }
 .mood { transform-origin: 0 50%; }
 .mood-card { height: 100%; padding: 10px 10px 18px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease); }
-.mood-card:hover { transform: translateY(-4px); box-shadow: 0 28px 44px -32px rgb(0 0 0 / 0.45); }
-.mood-art { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 11; margin-bottom: 8px; padding: 4% 14%; border: 0; border-radius: 16px; cursor: pointer; background: radial-gradient(62% 62% at 50% 46%, #fff 0%, var(--paper-deep) 100%); }
+.mood-card:hover { transform: translateY(-3px); }
+.mood-art { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 11; margin-bottom: 8px; padding: 4% 14%; border: 0; border-radius: 16px; cursor: pointer; background: none; }
 .mood-art > span { width: 100%; height: 100%; }
 .mood-card .tag { margin: 0 10px 6px; font: 500 11px/1.4 var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .mood-card h3, .mood-card h3 + p { margin-inline: 10px; }
@@ -564,7 +556,7 @@ em { font-style: italic; }
 .mini-cat[aria-expanded="true"], .mini-cat:hover { background: rgb(17 17 17 / 0.1); }
 .mini-cat > span { width: 19px; height: 19px; }
 .mini-time { font: 500 12px/1 var(--sans); color: var(--muted); font-variant-numeric: tabular-nums; }
-.mini-panel { --gx: 86%; position: absolute; top: 74px; right: 26px; display: flex; align-items: center; gap: 14px; width: min(300px, calc(100% - 40px)); padding: 14px 18px 14px 10px; border-radius: 22px; color: var(--ink); background: rgb(255 255 255 / 0.78); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: inset 0 0 0 1px var(--line-strong), 0 22px 40px -24px rgb(0 0 0 / 0.35); transform-origin: var(--gx) -10px; }
+.mini-panel { --gx: 86%; position: absolute; top: 74px; right: 26px; display: flex; align-items: center; gap: 14px; width: min(300px, calc(100% - 40px)); padding: 14px 18px 14px 10px; border-radius: 22px; color: var(--ink); background: #fff; box-shadow: inset 0 0 0 1px var(--line-strong), 0 1px 2px rgb(0 0 0 / 0.04); transform-origin: var(--gx) -10px; }
 .mini-panel:not(.is-open) { visibility: hidden; }
 .mini-panel.is-opening { animation: genie-in 0.34s var(--ease) both; }
 .mini-panel.is-closing { visibility: visible; animation: genie-out 0.27s cubic-bezier(0.55, 0, 0.8, 0.25) both; }
@@ -681,84 +673,20 @@ em { font-style: italic; }
 @keyframes paw-sway { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
 @keyframes tail-sway { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-4deg); } }
 
-/* Glass ------------------------------------------------------------------------------ */
-/* Glass needs something to refract, so three sections get a soft, drifting color
-   field, and their cards become frosted panes like Milo's own Liquid Glass. */
-
-#meet, #rhythm, #details { position: relative; isolation: isolate; }
-#meet::before, #rhythm::before, #details::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 12% -6% 6%;
-  filter: blur(40px) saturate(1.35);
-  opacity: 1;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  animation: aurora 26s ease-in-out infinite alternate;
-}
-#meet::before {
-  background:
-    radial-gradient(30% 40% at 18% 62%, #c4c4c4, transparent 70%),
-    radial-gradient(28% 38% at 52% 48%, #d0d0d0, transparent 70%),
-    radial-gradient(30% 42% at 84% 64%, #dadada, transparent 70%);
-}
-#rhythm::before {
-  background:
-    radial-gradient(34% 46% at 22% 66%, #d6d6d6, transparent 70%),
-    radial-gradient(30% 44% at 70% 58%, #c8c8c8, transparent 70%),
-    radial-gradient(22% 30% at 90% 80%, #cdcdcd, transparent 70%);
-}
-#details::before {
-  inset: 18% -6% 4%;
-  background:
-    radial-gradient(26% 26% at 14% 26%, #c6c6c6, transparent 70%),
-    radial-gradient(26% 24% at 82% 40%, #d4d4d4, transparent 70%),
-    radial-gradient(30% 26% at 30% 74%, #dcdcdc, transparent 70%),
-    radial-gradient(24% 22% at 78% 86%, #cbcbcb, transparent 70%);
-}
-@keyframes aurora { to { transform: translate3d(2.5%, -2%, 0) scale(1.05); } }
+/* Cards -------------------------------------------------------------------------------- */
+/* Plain white cards with a crisp edge: no blur, no glow, no background shapes. */
 
 .mood-card, .round, .tile {
   position: relative;
-  background: rgb(255 255 255 / 0.4);
-  border: 1px solid rgb(255 255 255 / 0.8);
-  backdrop-filter: blur(22px) saturate(1.7);
-  -webkit-backdrop-filter: blur(22px) saturate(1.7);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.95),
-    inset 0 -1px 0 rgb(255 255 255 / 0.35),
-    0 1px 2px rgb(0 0 0 / 0.06),
-    0 24px 48px -30px rgb(0 0 0 / 0.35);
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
 }
 .mood-card { overflow: hidden; }
-/* Text on tinted glass needs a darker gray to keep 4.5:1 over the color fields. */
-.mood-card, .round, .tile { --muted: #474747; }
-.mood-card:hover { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), 0 30px 54px -30px rgb(0 0 0 / 0.42); }
+.mood-card:hover { box-shadow: 0 6px 16px -8px rgb(0 0 0 / 0.18); }
 .mood-art { background: none; }
-.stop-card { background: rgb(255 255 255 / 0.62); }
-.stop[data-kind="short"] .stop-card { background: rgb(255 255 255 / 0.2); }
-
-/* A highlight that follows the pointer across the pane (set by main.js). */
-.mood-card::after, .round::after, .tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.55), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-}
-.mood-card:hover::after, .round:hover::after, .tile:hover::after { opacity: 1; }
-
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .mood-card, .round, .tile { background: rgb(255 255 255 / 0.88); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .mood-card, .round, .tile { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
-}
-html.still #meet::before, html.still #rhythm::before, html.still #details::before { animation: none; }
+.stop-card { background: #fff; }
+.stop[data-kind="short"] .stop-card { background: transparent; }
 
 /* Responsive ------------------------------------------------------------------------ */
 
