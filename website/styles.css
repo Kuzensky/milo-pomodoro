@@ -634,6 +634,20 @@ em { font-style: italic; }
 .toast-x { flex: none; width: 28px; height: 28px; margin: -3px -4px 0 auto; border: 0; border-radius: 50%; background: rgb(255 255 255 / 0.1); color: #fff; font-size: 18px; line-height: 1; cursor: pointer; }
 @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 20px); } }
 
+/* A cat lounging on the menu bar card: its flat underside (y 313 of the artwork,
+   298 / 718 of its width below the cropped top) rests on the card's top edge, and the
+   tail and front paw dangle over the card's empty top-right corner. */
+/* The tail and paw hang 257 / 718 of the cat's width below the edge; the card's text starts below them. */
+.tile.has-lounger { --lw: clamp(170px, 19vw, 230px); overflow: visible; padding-top: calc(var(--lw) * 257 / 718 + 34px); }
+#details .section-head { margin-bottom: clamp(110px, 12vw, 140px); }
+.lounger { position: absolute; z-index: 2; right: 28px; top: calc(var(--lw) * -298 / 718); width: var(--lw); aspect-ratio: 718 / 555; pointer-events: none; }
+.cat-lounge .swing-paw, .cat-lounge .swing-tail { transform-box: view-box; }
+.cat-lounge .swing-paw { transform-origin: 450px 306px; animation: paw-sway 3.4s ease-in-out infinite; }
+.cat-lounge .swing-tail { transform-origin: 94px 306px; animation: tail-sway 4.6s ease-in-out -1.2s infinite; }
+.cat-lounge .breathe { animation: breathe-rest 5.2s ease-in-out infinite; }
+@keyframes paw-sway { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
+@keyframes tail-sway { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-4deg); } }
+
 /* Glass ------------------------------------------------------------------------------ */
 /* Glass needs something to refract, so three sections get a soft, drifting color
    field, and their cards become frosted panes like Milo's own Liquid Glass. */
